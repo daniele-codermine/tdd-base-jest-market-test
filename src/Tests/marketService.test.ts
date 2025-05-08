@@ -5,24 +5,24 @@ it('Test Caricamento Banana', () => {
     var service = new marketService();
     service.clearCart();
     // aggiungi un prodotto
-    service.addProduct("Banana", 2);
+    service.addProduct({name: "Banana", price: 2});
     var product = service.getProductById(1);
     expect(product).not.toBeNull();
 	expect(product?.id).toBe(1);
     expect(product?.name).toBe("Banana");
 	expect(product?.price).toBe(2);
-    expect(product?.subtotal).toBe(2);
+    expect(product?.subtotal).toBe(2.44);
     expect(product?.quantity).toBe(1);
   });
 
 // Aggiunta singolo prodotto con prezzo fisso
 it('Test Aggiunta Prodotto Singolo', () => {
     var service = new marketService();
-    var product = service.addProduct("Banana", 2);
+    var product = service.addProduct({name: "Banana", price: 2});
     expect(product).not.toBeNull();
     expect(product?.name).toBe("Banana");
     expect(product?.price).toBe(2);
-    expect(product?.subtotal).toBe(2);
+    expect(product?.subtotal).toBe(2.44);
     expect(product?.quantity).toBe(1);
     // id non deve essere null
     expect(product?.id).not.toBeNull();
@@ -35,17 +35,18 @@ it('Test Aggiunta Prodotto Singolo', () => {
   // Aggiunta di due prodotti con prezzi diversi
 it('Test Aggiunta due prodotti distinti', () => {
     var service = new marketService();
-    var bananaProduct = service.addProduct("Banana", 2);
-    var appleProduct = service.addProduct("Mela", 3);
+    var bananaProduct = service.addProduct({name: "Banana", price: 2});
+    var appleProduct = service.addProduct({name: "Mela", price: 3});
     expect(bananaProduct).not.toBeNull();
     expect(appleProduct).not.toBeNull();
     expect(bananaProduct?.name).toBe("Banana");
     expect(bananaProduct?.price).toBe(2);
-    expect(bananaProduct?.subtotal).toBe(2);
+    expect(bananaProduct?.subtotal).toBe(2.44);
     expect(bananaProduct?.quantity).toBe(1);
     expect(appleProduct?.name).toBe("Mela");
     expect(appleProduct?.price).toBe(3);
-    expect(appleProduct?.subtotal).toBe(3);
+    // 3 + 22%
+    expect(appleProduct?.subtotal).toBe(3.66);
     expect(appleProduct?.quantity).toBe(1);
     // id non deve essere null
     expect(bananaProduct?.id).not.toBeNull();
@@ -62,7 +63,7 @@ it('Test Aggiunta due prodotti distinti', () => {
 // Cancellazione di un prodotto
 it('Test Cancellazione Prodotto', () => {
     var service = new marketService();
-    var addedProduct = service.addProduct("Preservativi", 10.23);
+    var addedProduct = service.addProduct({name: "Preservativi", price: 10.23});
     service.deleteProduct(addedProduct?.id);
     var product = service.getProductById(addedProduct?.id);
     expect(product).toBeNull();
@@ -71,13 +72,13 @@ it('Test Cancellazione Prodotto', () => {
 // Modifica della quantità di un prodotto già inserito
 it('Test Modifica quantità Prodotto', () => {
     var service = new marketService();
-    var addedProduct = service.addProduct("Banana", 2);
+    var addedProduct = service.addProduct({name: "Banana", price: 2});
     // expectations "extra" per consentire di lanciare il test separatamente dagli altri
     var product = service.getProductById(addedProduct?.id);
     expect(product).not.toBeNull();
     expect(product?.name).toBe("Banana");
     expect(product?.price).toBe(2);
-    expect(product?.subtotal).toBe(2);
+    expect(product?.subtotal).toBe(2.44);
     expect(product?.quantity).toBe(1);
     // modifica della quantità del prodotto
     product!.quantity = 2;
@@ -85,17 +86,17 @@ it('Test Modifica quantità Prodotto', () => {
     expect(updatedProduct).not.toBeNull();
     expect(updatedProduct?.name).toBe("Banana");
     expect(updatedProduct?.quantity).toBe(2);
-    expect(updatedProduct?.subtotal).toBe(4);
+    expect(updatedProduct?.subtotal).toBe(4.88);
 });
 
 // Gestione prezzi con i decimali
 it('Test Aggiunta Prodotto con Prezzo Decimale', () => {
     var service = new marketService();
-    var product = service.addProduct("Bikini", 15.67);
+    var product = service.addProduct({name: "Bikini", price: 15.67});
     expect(product).not.toBeNull();
     expect(product?.name).toBe("Bikini");
     expect(product?.price).toBe(15.67);
-    expect(product?.subtotal).toBe(15.67);
+    expect(product?.subtotal).toBe(19.12);
     expect(product?.quantity).toBe(1);
     // id non deve essere null
     expect(product?.id).not.toBeNull();
@@ -111,8 +112,8 @@ it('Test Sconto Fisso', () => {
     // svuota il carrello
     service.clearCart();
     // aggiungi due prodotti
-    var product1 = service.addProduct("Perizoma", 15.67, 2); // 31.34
-    var product2 = service.addProduct("Culotte", 25.99, 2); // 51.98
+    var product1 = service.addProduct({name: "Perizoma", price: 15.67, quantity: 2}); // 31.34
+    var product2 = service.addProduct({name: "Culotte", price: 25.99, quantity: 2}); // 51.98
     // recupera tutti i prodotti
     var products = service.getAllProducts();
     // calcola il totale iterando su products e sommando i price
@@ -120,7 +121,7 @@ it('Test Sconto Fisso', () => {
     products.forEach((product) => {
         total += product.subtotal;
     });
-    expect(total).toBe(83.32);
+    expect(total).toBe(101.65);
     // applica lo sconto fisso di 5 euro
     service.setDiscount(5);
     // calcola il totale con lo sconto
@@ -129,7 +130,8 @@ it('Test Sconto Fisso', () => {
     products.forEach((product) => {
         discountedTotal += product.subtotal;
     });
-    expect(discountedTotal).toBe(78.32);
+    // HACK * 1 per fare "cast" da string a number
+    expect(discountedTotal.toFixed(2)*1).toBe(95.55);
 });
 
 // Modalità sconto percentuale
@@ -138,11 +140,11 @@ it('Test Sconto Percentuale', () => {
     // svuota il carrello
     service.clearCart();
     // aggiungi due prodotti
-    var product1 = service.addProduct("Tanga", 10, 2);
-    var product2 = service.addProduct("Carne", 20);
-    var product3 = service.addProduct("Pecorino", 20, 2);
-    var product4 = service.addProduct("Mozzarella", 30);
-    var product5 = service.addProduct("Slinzega", 21, 2);
+    var product1 = service.addProduct({name: "Tanga", price: 10, quantity: 2});
+    var product2 = service.addProduct({name: "Carne", price: 20});
+    var product3 = service.addProduct({name: "Pecorino", price: 20, quantity: 2});
+    var product4 = service.addProduct({name: "Mozzarella", price: 30});
+    var product5 = service.addProduct({name: "Slinzega", price: 21, quantity: 2});
     // recupera tutti i prodotti
     var products = service.getAllProducts();
     // calcola il totale iterando su products e sommando i price
@@ -150,7 +152,7 @@ it('Test Sconto Percentuale', () => {
     products.forEach((product) => {
         total += product.subtotal;
     });
-    expect(total).toBe(152);
+    expect(total).toBe(185.44);
     // applica lo sconto percentuale del 10%
     service.setPercDiscount(10);
     // calcola il totale con lo sconto
@@ -159,7 +161,7 @@ it('Test Sconto Percentuale', () => {
     products.forEach((product) => {
         discountedTotal += product.subtotal
     });
-    expect(discountedTotal).toBe(136.8);
+    expect(discountedTotal).toBe(162.82);
 });
 
 // 3x2: Acquistando 3 prodotti, ne verrà scontato 1.
@@ -168,9 +170,9 @@ it('Test Sconto 3x2', () => {
     // svuota il carrello
     service.clearCart();
     // aggiungi tre prodotti
-    var product1 = service.addProduct("Tanga", 10, 2);
-    var product2 = service.addProduct("Carne", 20, 5);
-    var product3 = service.addProduct("Pecorino", 20, 9);
+    var product1 = service.addProduct({name: "Tanga", price: 10, quantity: 2});
+    var product2 = service.addProduct({name: "Carne", price: 20, quantity: 5});
+    var product3 = service.addProduct({name: "Pecorino", price: 20, quantity: 9});
     // recupera tutti i prodotti
     var products = service.getAllProducts();
     // verifica che il totale di product1 sia 20
@@ -195,9 +197,9 @@ it('Test Sconto Bundle', () => {
     // svuota il carrello
     service.clearCart();
     // aggiungi tre prodotti
-    var product1 = service.addProduct("Mela", 4);
-    var product2 = service.addProduct("Banana", 3);
-    var product3 = service.addProduct("Arancia", 5);
+    var product1 = service.addProduct({name: "Mela", price: 4});
+    var product2 = service.addProduct({name: "Banana", price: 3});
+    var product3 = service.addProduct({name: "Arancia", price: 5});
     // recupera tutti i prodotti
     var products = service.getAllProducts();
     // calcola il totale iterando su products e sommando i price
@@ -205,5 +207,22 @@ it('Test Sconto Bundle', () => {
     products.forEach((product) => {
         total += product.subtotal;
     });
+    //TODO 8 Euro viene considerato IVA inclusa ma è un caso limite
     expect(total).toBe(8);
+});
+
+// Gestione IVA prodotti sui prodotti
+it('Test IVA Prodotto', () => {
+    var service = new marketService();
+    // svuota il carrello
+    service.clearCart();
+    // aggiungi un prodotto
+    var product = service.addProduct({name: "Banana", price: 2, vat: 4});
+    // verifica che l'iva sia 0
+    expect(product?.vat).toBe(4);
+    // verifica che il subtotale sia 2 + 4%
+    expect(product?.subtotal).toBe(2.08);
+    var product2 = service.addProduct({name: "Trattamento SPA", price: 50, vat: 11});
+    expect(product2?.vat).toBe(11);
+    expect(product2?.subtotal).toBe(55.5);
 });

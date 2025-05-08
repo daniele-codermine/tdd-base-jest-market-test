@@ -1,34 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Mela",
-    "price": 0,
+    "name": "Banana",
+    "price": 2,
     "quantity": 1,
     "discount": 0,
-    "subtotal": 0
+    "vat": 4,
+    "subtotal": 2.08
   },
   {
     "id": 2,
-    "name": "Banana",
-    "price": 0,
+    "name": "Trattamento SPA",
+    "price": 50,
     "quantity": 1,
     "discount": 0,
-    "subtotal": 0
-  },
-  {
-    "id": 3,
-    "name": "Arancia",
-    "price": 0,
-    "quantity": 1,
-    "discount": 0,
-    "subtotal": 0
-  },
-  {
-    "id": 5,
-    "name": "Bundle Macedonia",
-    "price": 8,
-    "quantity": 1,
-    "discount": 0,
-    "subtotal": 8
+    "vat": 11,
+    "subtotal": 55.5
   }
 ]

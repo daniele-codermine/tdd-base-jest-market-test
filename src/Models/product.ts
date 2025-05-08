@@ -5,4 +5,5 @@ export interface Product {
   quantity?: number;
   discount?: number;
   subtotal?: number;
+  vat?: number;
 }

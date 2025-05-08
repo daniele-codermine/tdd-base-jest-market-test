@@ -18,16 +18,17 @@ export default class MarketService {
     }
   }
 
-  public addProduct(name: string, price: number, quantity: number = 1): Product {
+  public addProduct({ name, price, quantity = 1, vat = 22 }: { name: string; price: number; quantity?: number; vat?: number }): Product {
     let products = this.getAllProducts();
     const newId = products.length > 0 ? products[products.length - 1].id + 1 : 1;
     let newProduct: Product = {
       id: newId,
       name: name,
-      price: price,
+      price: parseFloat(price.toFixed(2)),
       quantity: quantity ?? 1,
       discount: 0,
-      subtotal: price * (quantity ?? 1),
+      vat: vat,
+      subtotal: parseFloat((price * (quantity ?? 1) * (1 + vat / 100)).toFixed(2)),
     };
     if ((newProduct.quantity ?? 1) >= 3) {
       newProduct = this.set3x2Discount(newProduct);
@@ -62,7 +63,7 @@ export default class MarketService {
       if (index !== -1) {
         products[index] = product;
         // aggiorna il subtotal
-        product.subtotal = product.price * (product.quantity ?? 1);
+        product.subtotal = product.price * (product.quantity ?? 1) * (1 + (product.vat ?? 22) / 100);
         // se la quantità è >= 3 applica lo sconto 3x2
         if ((product.quantity ?? 1) >= 3) {
           product = this.set3x2Discount(product);
@@ -82,9 +83,9 @@ export default class MarketService {
   public setDiscount(amount: number, isPercent: boolean = false) {
     // HACK FIXME: lo sconto fisso è un articolo dummy preceduto da un underscore
     if (isPercent) {
-      this.addProduct("_SCONTO_PCT", -amount);
+      this.addProduct({name: "_SCONTO_PCT", price: -amount});
     } else {
-      this.addProduct("_SCONTO", -amount);
+      this.addProduct({name: "_SCONTO", price: -amount});
     }
   }
 
