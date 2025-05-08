@@ -27,6 +27,7 @@ export default class MarketService {
       price: price,
     };
     products.push(newProduct);
+    this.saveProducts(products);
     return newProduct
   }
 
