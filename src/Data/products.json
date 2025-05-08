@@ -28,5 +28,40 @@
     "id": 6,
     "name": "Mela",
     "price": 3
+  },
+  {
+    "id": 7,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 8,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 9,
+    "name": "Mela",
+    "price": 3
+  },
+  {
+    "id": 10,
+    "name": "Preservativi",
+    "price": 10.23
+  },
+  {
+    "id": 11,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 12,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 13,
+    "name": "Mela",
+    "price": 3
   }
 ]

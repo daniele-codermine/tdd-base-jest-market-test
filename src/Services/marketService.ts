@@ -31,6 +31,20 @@ export default class MarketService {
     return newProduct
   }
 
+  public deleteProduct(id: number) {
+    const products = this.getAllProducts();
+    // trova l'indice del prodotto da eliminare
+    const index = products.findIndex((p) => p.id === id);
+    // se il prodotto esiste, lo elimina
+    if (index !== -1) {
+      products.splice(index, 1);
+      this.saveProducts(products);
+      return true;
+    }
+    // se il prodotto non esiste, restituisce false
+    return false;
+  }
+
   private saveProducts(products: Product[]) {
     writeJson(products, "products.json");
   }

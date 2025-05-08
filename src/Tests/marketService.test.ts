@@ -47,3 +47,12 @@ it('Test Aggiunta due prodotti distinti', () => {
     // id deve essere maggiore di 0
     expect(bananaProduct?.id).toBeGreaterThan(0);
 });
+
+// Cancellazione di un prodotto
+it('Test Cancellazione Prodotto', () => {
+    var service = new marketService();
+    var addedProduct = service.addProduct("Preservativi", 10.23);
+    service.deleteProduct(addedProduct?.id);
+    var product = service.getProductById(addedProduct?.id);
+    expect(product).toBeNull();
+});
