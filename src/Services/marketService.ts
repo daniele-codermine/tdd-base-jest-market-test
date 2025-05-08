@@ -18,15 +18,23 @@ export default class MarketService {
     }
   }
 
-  public addProduct(name: string, price: number): Product {
-    const products = this.getAllProducts();
+  public addProduct(name: string, price: number, quantity: number = 1): Product {
+    let products = this.getAllProducts();
     const newId = products.length > 0 ? products[products.length - 1].id + 1 : 1;
-    const newProduct: Product = {
+    let newProduct: Product = {
       id: newId,
       name: name,
       price: price,
+      quantity: quantity ?? 1,
+      discount: 0,
+      subtotal: price * (quantity ?? 1),
     };
+    if ((newProduct.quantity ?? 1) >= 3) {
+      newProduct = this.set3x2Discount(newProduct);
+    }
+
     products.push(newProduct);
+    this.setBundleDiscount(products);
     this.saveProducts(products);
     return newProduct
   }
@@ -53,6 +61,12 @@ export default class MarketService {
       // se il prodotto esiste, lo aggiorna
       if (index !== -1) {
         products[index] = product;
+        // aggiorna il subtotal
+        product.subtotal = product.price * (product.quantity ?? 1);
+        // se la quantità è >= 3 applica lo sconto 3x2
+        if ((product.quantity ?? 1) >= 3) {
+          product = this.set3x2Discount(product);
+        }
         this.saveProducts(products);
         return product;
       }
@@ -74,10 +88,21 @@ export default class MarketService {
     }
   }
 
+  public set3x2Discount(p: Product): Product {
+    p.quantity = p.quantity ?? 1;
+    p.subtotal = p.subtotal ?? p.price * p.quantity;
+    if (p.quantity >= 3) {
+      p.discount = Math.floor(p.quantity / 3) * p.price;
+      p.subtotal -= p.discount;
+      this.updateProduct(p);
+    }
+    return p;
+  }
+
   public setPercDiscount(pct: number) {
     // calcolla prima il totale
     const products: Product[] = this.getAllProducts();
-    const total = products.reduce((acc, product) => acc + product.price, 0);
+    const total = products.reduce((acc, product) => acc + product.subtotal, 0);
     // se il totale è < 100 non applica lo sconto
     if (total < 100) {
       return;
@@ -86,7 +111,34 @@ export default class MarketService {
     const discount = (total * pct) / 100;
     // aggiungi lo sconto come prodotto
     this.setDiscount(discount, true);
-}
+  }
+
+  private setBundleDiscount(products: Product[]) {
+    const hasMela = products.some((p) => p.name === "Mela");
+    const hasBanana = products.some((p) => p.name === "Banana");
+    const hasArancia = products.some((p) => p.name === "Arancia");
+    const newId = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+    if (hasMela && hasBanana && hasArancia) {
+      // FIXME non funziona per quantità > 1
+      const bundleDiscount = 8;
+      // imposta a 0 il subtotal e prezzo dei prodotti con name Mela, Banana e Arancia
+      products
+        .filter((p) => ["Mela", "Banana", "Arancia"].includes(p.name))
+        .forEach((p) => {
+          p.subtotal = 0;
+          p.price = 0;
+        });
+      const bundleProduct: Product = {
+        id: newId + 1,
+        name: "Bundle Macedonia",
+        price: bundleDiscount,
+        quantity: 1,
+        discount: 0,
+        subtotal: bundleDiscount,
+      };
+      products.push(bundleProduct);
+    }
+  }
 
   private saveProducts(products: Product[]) {
     writeJson(products, "products.json");

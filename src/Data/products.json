@@ -1,32 +1,34 @@
 [
   {
     "id": 1,
-    "name": "Tanga",
-    "price": 10
+    "name": "Mela",
+    "price": 0,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 0
   },
   {
     "id": 2,
-    "name": "Carne",
-    "price": 20
+    "name": "Banana",
+    "price": 0,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 0
   },
   {
     "id": 3,
-    "name": "Pecorino",
-    "price": 20
-  },
-  {
-    "id": 4,
-    "name": "Mozzarella",
-    "price": 30
+    "name": "Arancia",
+    "price": 0,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 0
   },
   {
     "id": 5,
-    "name": "Slinzega",
-    "price": 21
-  },
-  {
-    "id": 6,
-    "name": "_SCONTO_PCT",
-    "price": -10.1
+    "name": "Bundle Macedonia",
+    "price": 8,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 8
   }
 ]
