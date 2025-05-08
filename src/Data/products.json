@@ -83,5 +83,30 @@
     "id": 17,
     "name": "Banana",
     "price": 2.99
+  },
+  {
+    "id": 18,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 19,
+    "name": "Banana",
+    "price": 2
+  },
+  {
+    "id": 20,
+    "name": "Mela",
+    "price": 3
+  },
+  {
+    "id": 21,
+    "name": "Banana",
+    "price": 2.99
+  },
+  {
+    "id": 22,
+    "name": "Bikini",
+    "price": 15.67
   }
 ]

@@ -73,3 +73,18 @@ it('Test Modifica quantità Prodotto', () => {
     expect(updatedProduct?.name).toBe("Banana");
     expect(updatedProduct?.price).toBe(2.99);
 });
+
+// Gestione prezzi con i decimali
+it('Test Aggiunta Prodotto con Prezzo Decimale', () => {
+    var service = new marketService();
+    var product = service.addProduct("Bikini", 15.67);
+    expect(product).not.toBeNull();
+    expect(product?.name).toBe("Bikini");
+    expect(product?.price).toBe(15.67);
+    // id non deve essere null
+    expect(product?.id).not.toBeNull();
+    // id deve essere un numero
+    expect(typeof product?.id).toBe("number");
+    // id deve essere maggiore di 0
+    expect(product?.id).toBeGreaterThan(0);
+});
