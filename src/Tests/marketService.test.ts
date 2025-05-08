@@ -88,3 +88,30 @@ it('Test Aggiunta Prodotto con Prezzo Decimale', () => {
     // id deve essere maggiore di 0
     expect(product?.id).toBeGreaterThan(0);
 });
+
+// Modalità sconto fisso
+it('Test Sconto Fisso', () => {
+    var service = new marketService();
+    // svuota il carrello
+    service.clearCart();
+    // aggiungi due prodotti
+    var product1 = service.addProduct("Perizoma", 15.67);
+    var product2 = service.addProduct("Culotte", 25.99);
+    // recupera tutti i prodotti
+    var products = service.getAllProducts();
+    // calcola il totale iterando su products e sommando i price
+    var total = 0;
+    products.forEach((product) => {
+        total += product.price;
+    });
+    expect(total).toBe(41.66);
+    // applica lo sconto fisso di 5 euro
+    service.setDiscount(5);
+    // calcola il totale con lo sconto
+    var discountedTotal = 0;
+    var products = service.getAllProducts();
+    products.forEach((product) => {
+        discountedTotal += product.price;
+    });
+    expect(discountedTotal).toBe(36.66);
+});

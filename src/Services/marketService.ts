@@ -60,6 +60,16 @@ export default class MarketService {
     return null;
   }
 
+  public clearCart() {
+    const products: Product[] = [];
+    this.saveProducts(products);
+  }
+
+  public setDiscount(amount: number) {
+    // HACK FIXME: lo sconto fisso è un articolo dummy
+    this.addProduct("Sconto", -amount);
+  }
+
   private saveProducts(products: Product[]) {
     writeJson(products, "products.json");
   }
