@@ -2,16 +2,57 @@
   {
     "id": 1,
     "name": "Banana",
-    "price": 2
+    "price": 2,
+    "threeForTwo": true,
+    "vat": 4
   },
   {
     "id": 2,
     "name": "Mela",
-    "price": 3
+    "price": 3,
+    "threeForTwo": true,
+    "vat": 4
   },
   {
     "id": 3,
     "name": "Arancia",
-    "price": 5
+    "price": 5,
+    "threeForTwo": true,
+    "vat": 4
+  },
+  {
+    "id": 4,
+    "name": "Kiwi",
+    "price": 3.60,
+    "threeForTwo": true,
+    "vat": 4
+  },
+  {
+    "id": 5,
+    "name": "Uva",
+    "price": 2.50,
+    "threeForTwo": true,
+    "vat": 4
+  },
+  {
+    "id": 6,
+    "name": "Pesca",
+    "price": 3.20,
+    "threeForTwo": true,
+    "vat": 4
+  },
+  {
+    "id": 7,
+    "name": "Ciliegia",
+    "price": 72.80,
+    "threeForTwo": true,
+    "vat": 4
+  },
+  {
+    "id": 8,
+    "name": "Fragola",
+    "price": 65.60,
+    "threeForTwo": true,
+    "vat": 4
   }
 ]
