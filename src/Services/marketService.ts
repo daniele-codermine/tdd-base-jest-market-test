@@ -65,10 +65,28 @@ export default class MarketService {
     this.saveProducts(products);
   }
 
-  public setDiscount(amount: number) {
-    // HACK FIXME: lo sconto fisso è un articolo dummy
-    this.addProduct("Sconto", -amount);
+  public setDiscount(amount: number, isPercent: boolean = false) {
+    // HACK FIXME: lo sconto fisso è un articolo dummy preceduto da un underscore
+    if (isPercent) {
+      this.addProduct("_SCONTO_PCT", -amount);
+    } else {
+      this.addProduct("_SCONTO", -amount);
+    }
   }
+
+  public setPercDiscount(pct: number) {
+    // calcolla prima il totale
+    const products: Product[] = this.getAllProducts();
+    const total = products.reduce((acc, product) => acc + product.price, 0);
+    // se il totale è < 100 non applica lo sconto
+    if (total < 100) {
+      return;
+    }
+    // calcola lo sconto
+    const discount = (total * pct) / 100;
+    // aggiungi lo sconto come prodotto
+    this.setDiscount(discount, true);
+}
 
   private saveProducts(products: Product[]) {
     writeJson(products, "products.json");

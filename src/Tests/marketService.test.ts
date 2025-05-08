@@ -3,6 +3,9 @@ import marketService from '../Services/marketService.ts';
 
 it('Test Caricamento Banana', () => {
     var service = new marketService();
+    service.clearCart();
+    // aggiungi un prodotto
+    service.addProduct("Banana", 2);
     var product = service.getProductById(1);
     expect(product).not.toBeNull();
 	expect(product?.id).toBe(1);
@@ -67,11 +70,11 @@ it('Test Modifica quantità Prodotto', () => {
     expect(product?.name).toBe("Banana");
     expect(product?.price).toBe(2);
     // modifica della quantità del prodotto
-    product!.price = 2.99;
+    product!.quantity = 2;
     var updatedProduct = service.updateProduct(product);
     expect(updatedProduct).not.toBeNull();
     expect(updatedProduct?.name).toBe("Banana");
-    expect(updatedProduct?.price).toBe(2.99);
+    expect(updatedProduct?.quantity).toBe(2);
 });
 
 // Gestione prezzi con i decimali
@@ -114,4 +117,34 @@ it('Test Sconto Fisso', () => {
         discountedTotal += product.price;
     });
     expect(discountedTotal).toBe(36.66);
+});
+
+// Modalità sconto percentuale
+it('Test Sconto Percentuale', () => {
+    var service = new marketService();
+    // svuota il carrello
+    service.clearCart();
+    // aggiungi due prodotti
+    var product1 = service.addProduct("Tanga", 10);
+    var product2 = service.addProduct("Carne", 20);
+    var product3 = service.addProduct("Pecorino", 20);
+    var product4 = service.addProduct("Mozzarella", 30);
+    var product5 = service.addProduct("Slinzega", 21);
+    // recupera tutti i prodotti
+    var products = service.getAllProducts();
+    // calcola il totale iterando su products e sommando i price
+    var total = 0;
+    products.forEach((product) => {
+        total += product.price;
+    });
+    expect(total).toBe(101);
+    // applica lo sconto percentuale del 10%
+    service.setPercDiscount(10);
+    // calcola il totale con lo sconto
+    var discountedTotal = 0;
+    var products = service.getAllProducts();
+    products.forEach((product) => {
+        discountedTotal += product.price;
+    });
+    expect(discountedTotal).toBe(90.9);
 });

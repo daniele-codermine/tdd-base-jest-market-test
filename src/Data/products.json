@@ -1,17 +1,32 @@
 [
   {
     "id": 1,
-    "name": "Perizoma",
-    "price": 15.67
+    "name": "Tanga",
+    "price": 10
   },
   {
     "id": 2,
-    "name": "Culotte",
-    "price": 25.99
+    "name": "Carne",
+    "price": 20
   },
   {
     "id": 3,
-    "name": "Sconto",
-    "price": -5
+    "name": "Pecorino",
+    "price": 20
+  },
+  {
+    "id": 4,
+    "name": "Mozzarella",
+    "price": 30
+  },
+  {
+    "id": 5,
+    "name": "Slinzega",
+    "price": 21
+  },
+  {
+    "id": 6,
+    "name": "_SCONTO_PCT",
+    "price": -10.1
   }
 ]
