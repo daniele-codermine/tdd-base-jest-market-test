@@ -2,16 +2,29 @@
   {
     "id": 1,
     "name": "Banana",
-    "price": 2
+    "price": 2,
+    "active": "Y"
   },
   {
     "id": 2,
     "name": "Mela",
-    "price": 3
+    "price": 3,
+    "active": "Y"
   },
   {
     "id": 3,
     "name": "Arancia",
-    "price": 5
+    "price": 5,
+    "active": "Y"
+  },
+  {
+    "id": 4,
+    "name": "Prodotto Quattro",
+    "price": 4
+  },
+  {
+    "id": 6,
+    "name": "Prodotto Sei",
+    "price": 6
   }
 ]

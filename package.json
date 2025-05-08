@@ -8,15 +8,25 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "https://jestjs.io/docs/getting-started#using-typescript",
   "devDependencies": {
     "@babel/preset-typescript": "^7.26.0",
     "@jest/globals": "^29.7.0",
-    "ts-jest": "^29.2.5"
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@babel/preset-env": "^7.26.0",
     "jest": "^29.7.0",
+    "jest-booking-system": "file:",
     "ts-node": "^10.9.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniele-codermine/tdd-base-jest-market-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/daniele-codermine/tdd-base-jest-market-test/issues"
+  },
+  "homepage": "https://github.com/daniele-codermine/tdd-base-jest-market-test#readme"
 }
