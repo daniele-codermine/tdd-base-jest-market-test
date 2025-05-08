@@ -226,3 +226,20 @@ it('Test IVA Prodotto', () => {
     expect(product2?.vat).toBe(11);
     expect(product2?.subtotal).toBe(55.5);
 });
+
+// snapshot test
+it('Test snapshot', () => {
+    var service = new marketService();
+    // svuota il carrello
+    service.clearCart();
+    // aggiungi un prodotto
+    var product = service.addProduct({name: "Banana", price: 2});
+    var product = service.addProduct({name: "Pera", price: 6, quantity: 2});
+    var product = service.addProduct({name: "Mela", price: 3, quantity: 3});
+    var product = service.addProduct({name: "Arancia", price: 5, quantity: 4});
+    var product = service.addProduct({name: "Clementina", price: 4, quantity: 5});
+    var product = service.addProduct({name: "Limone", price: 2, quantity: 6});
+    var product = service.addProduct({name: "Pompelmo", price: 3, quantity: 7});            
+
+    expect(service.printReceipt()).toMatchSnapshot();
+});

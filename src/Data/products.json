@@ -2,19 +2,96 @@
   {
     "id": 1,
     "name": "Banana",
-    "price": 2,
+    "price": 0,
     "quantity": 1,
     "discount": 0,
-    "vat": 4,
-    "subtotal": 2.08
+    "vat": 22,
+    "subtotal": 0
   },
   {
     "id": 2,
-    "name": "Trattamento SPA",
-    "price": 50,
+    "name": "Pera",
+    "price": 6,
+    "quantity": 2,
+    "discount": 0,
+    "vat": 22,
+    "subtotal": 14.64
+  },
+  {
+    "id": 3,
+    "name": "Mela",
+    "price": 0,
+    "quantity": 3,
+    "discount": 3,
+    "vat": 22,
+    "subtotal": 0
+  },
+  {
+    "id": 4,
+    "name": "Arancia",
+    "price": 0,
+    "quantity": 4,
+    "discount": 5,
+    "vat": 22,
+    "subtotal": 0
+  },
+  {
+    "id": 6,
+    "name": "Bundle Macedonia",
+    "price": 8,
     "quantity": 1,
     "discount": 0,
-    "vat": 11,
-    "subtotal": 55.5
+    "subtotal": 8
+  },
+  {
+    "id": 7,
+    "name": "Clementina",
+    "price": 4,
+    "quantity": 5,
+    "discount": 4,
+    "vat": 22,
+    "subtotal": 20.4
+  },
+  {
+    "id": 9,
+    "name": "Bundle Macedonia",
+    "price": 8,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 8
+  },
+  {
+    "id": 10,
+    "name": "Limone",
+    "price": 2,
+    "quantity": 6,
+    "discount": 4,
+    "vat": 22,
+    "subtotal": 10.64
+  },
+  {
+    "id": 12,
+    "name": "Bundle Macedonia",
+    "price": 8,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 8
+  },
+  {
+    "id": 13,
+    "name": "Pompelmo",
+    "price": 3,
+    "quantity": 7,
+    "discount": 6,
+    "vat": 22,
+    "subtotal": 19.62
+  },
+  {
+    "id": 15,
+    "name": "Bundle Macedonia",
+    "price": 8,
+    "quantity": 1,
+    "discount": 0,
+    "subtotal": 8
   }
 ]

@@ -114,6 +114,23 @@ export default class MarketService {
     this.setDiscount(discount, true);
   }
 
+  // crea un metodo che stampa lo scontrino
+  public printReceipt() {
+    const products: Product[] = this.getAllProducts();
+    let total = 0;
+    let receipt = "Scontrino\n";
+    products.forEach((product) => {
+      receipt += `${product.name} ${product.price} x ${product.quantity} = ${product.subtotal}\n`;
+      total += product.subtotal;
+    }
+    );
+    receipt += `Totale: ${total}\n`;
+    receipt += `Grazie per aver scelto il nostro servizio!\n`;
+    receipt += `Arrivederci!\n`;
+    console.log(receipt);
+    return receipt
+  }
+
   private setBundleDiscount(products: Product[]) {
     const hasMela = products.some((p) => p.name === "Mela");
     const hasBanana = products.some((p) => p.name === "Banana");

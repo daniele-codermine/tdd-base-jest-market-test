@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+"Scontrino
+Banana 0 x 1 = 0
+Pera 6 x 2 = 14.64
+Mela 0 x 3 = 0
+Arancia 0 x 4 = 0
+Bundle Macedonia 8 x 1 = 8
+Clementina 4 x 5 = 20.4
+Bundle Macedonia 8 x 1 = 8
+Limone 2 x 6 = 10.64
+Bundle Macedonia 8 x 1 = 8
+Pompelmo 3 x 7 = 19.62
+Bundle Macedonia 8 x 1 = 8
+Totale: 97.30000000000001
+Grazie per aver scelto il nostro servizio!
+Arrivederci!
+"
+`;
