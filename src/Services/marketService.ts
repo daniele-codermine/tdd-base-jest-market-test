@@ -16,9 +16,9 @@ export default class MarketService {
     } else {
       return null;
     }
-  }  
-  
-  public addProduct(name: string, price: number) : Product {
+  }
+
+  public addProduct(name: string, price: number): Product {
     const products = this.getAllProducts();
     const newId = products.length > 0 ? products[products.length - 1].id + 1 : 1;
     const newProduct: Product = {
@@ -43,6 +43,21 @@ export default class MarketService {
     }
     // se il prodotto non esiste, restituisce false
     return false;
+  }
+
+  public updateProduct(product: Product | null): Product | null {
+    if (product != null) {
+      const products = this.getAllProducts();
+      // trova l'indice del prodotto da aggiornare
+      const index = products.findIndex((p) => p.id === product.id);
+      // se il prodotto esiste, lo aggiorna
+      if (index !== -1) {
+        products[index] = product;
+        this.saveProducts(products);
+        return product;
+      }
+    }
+    return null;
   }
 
   private saveProducts(products: Product[]) {

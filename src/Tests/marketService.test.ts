@@ -56,3 +56,20 @@ it('Test Cancellazione Prodotto', () => {
     var product = service.getProductById(addedProduct?.id);
     expect(product).toBeNull();
 });
+
+// Modifica della quantità di un prodotto già inserito
+it('Test Modifica quantità Prodotto', () => {
+    var service = new marketService();
+    var addedProduct = service.addProduct("Banana", 2);
+    // expectations "extra" per consentire di lanciare il test separatamente dagli altri
+    var product = service.getProductById(addedProduct?.id);
+    expect(product).not.toBeNull();
+    expect(product?.name).toBe("Banana");
+    expect(product?.price).toBe(2);
+    // modifica della quantità del prodotto
+    product!.price = 2.99;
+    var updatedProduct = service.updateProduct(product);
+    expect(updatedProduct).not.toBeNull();
+    expect(updatedProduct?.name).toBe("Banana");
+    expect(updatedProduct?.price).toBe(2.99);
+});
